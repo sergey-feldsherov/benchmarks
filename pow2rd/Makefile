@@ -3,7 +3,7 @@ CC = gcc $(CFLAGS)
 
 all: main.out
 
-main.out: main.c
+main.out: main.c pow2rd.h
 	$(CC) -o main.out main.c
 
 clean:
