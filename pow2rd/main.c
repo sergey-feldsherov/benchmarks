@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
         }
     } else {
         for (unsigned int i = 0; i < num; ++i) {
-            res[i] = pow2rd_builtin(args[i]);
+            res[i] = pow2rd_builtin_clz(args[i]);
         }
     }
 
