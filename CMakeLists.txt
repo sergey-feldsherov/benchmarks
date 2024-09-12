@@ -5,6 +5,8 @@ project(
     LANGUAGES CXX
 )
 
+set(CMAKE_CXX_FLAGS "-Wunused -Wall -Wextra -Wshadow -Wconversion -Wpedantic -Werror")
+
 if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
     message(
         FATAL_ERROR
