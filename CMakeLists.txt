@@ -12,6 +12,8 @@ if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
     )
 endif()
 
+include(cmake/UpdateSubmodules.cmake)
+
 set(BENCHMARK_ENABLE_GTEST_TESTS OFF)
 message(
     STATUS
