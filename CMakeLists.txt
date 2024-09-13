@@ -22,4 +22,6 @@ message(
         "Building tests of Google Benchmark is disabled"
 )
 add_subdirectory(external)
+
 add_subdirectory(pow2rd)
+add_subdirectory(innerproduct)
