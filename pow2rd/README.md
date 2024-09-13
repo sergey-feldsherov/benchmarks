@@ -15,4 +15,6 @@ This was used to profile with perf.
 
 # TODO
 
-write down here a quick reminder on how to use perf to analyze this code
+- write down here a quick reminder on how to use perf to analyze this code
+- fix old-Makefile
+- fix bmpow2rd: benchmark on some set of (random?) numbers
