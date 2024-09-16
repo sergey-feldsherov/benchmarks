@@ -21,11 +21,6 @@ endif()
 
 include(cmake/UpdateSubmodules.cmake)
 
-set(BENCHMARK_ENABLE_GTEST_TESTS OFF)
-message(
-    STATUS
-        "Building tests of Google Benchmark is disabled"
-)
 add_subdirectory(external)
 
 add_subdirectory(pow2rd)
