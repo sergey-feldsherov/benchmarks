@@ -21,6 +21,8 @@ static void BM_ip_naive(benchmark::State &state) {
         benchmark::DoNotOptimize(d_ip);
     }
     state.SetComplexityN(state.range(0));
+    delete[] v;
+    delete[] w;
 }
 BENCHMARK(BM_ip_naive)->Range(64, 4096*8)->Complexity(benchmark::oN);
 
@@ -41,6 +43,8 @@ static void BM_ip_avx512f(benchmark::State &state) {
         benchmark::DoNotOptimize(d_ip);
     }
     state.SetComplexityN(state.range(0));
+    delete[] v;
+    delete[] w;
 }
 BENCHMARK(BM_ip_avx512f)->Range(64, 4096*8)->Complexity(benchmark::oN);
 
@@ -61,6 +65,8 @@ static void BM_ip_aarch64(benchmark::State &state) {
         benchmark::DoNotOptimize(d_ip);
     }
     state.SetComplexityN(state.range(0));
+    delete[] v;
+    delete[] w;
 }
 BENCHMARK(BM_ip_aarch64)->Range(64, 4096*8)->Complexity(benchmark::oN);
 
@@ -81,6 +87,8 @@ static void BM_ip_blas(benchmark::State &state) {
         benchmark::DoNotOptimize(d_ip);
     }
     state.SetComplexityN(state.range(0));
+    delete[] v;
+    delete[] w;
 }
 BENCHMARK(BM_ip_blas)->Range(64, 4096*8)->Complexity(benchmark::oN);
 
