@@ -10,7 +10,7 @@ if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "Defaulting to Release CMAKE_BUILD_TYPE")
 endif()
 
-set(CMAKE_CXX_FLAGS "-Wunused -Wall -Wextra -Wshadow -Wconversion -Wpedantic -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wunused -Wall -Wextra -Wshadow -Wconversion -Wpedantic -Werror")
 
 if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
     message(
