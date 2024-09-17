@@ -1,0 +1,7 @@
+#ifndef SHIFTEDBOOLEANARRAY_HPP
+#define SHIFTEDBOOLEANARRAY_HPP
+
+class ShiftedBooleanArray {
+};
+
+#endif  // SHIFTEDBOOLEANARRAY_HPP

@@ -1,0 +1,7 @@
+#ifndef SENTINELBOOLEANARRAY_HPP
+#define SENTINELBOOLEANARRAY_HPP
+
+class SentinelBooleanArray {
+};
+
+#endif  // SENTINELBOOLEANARRAY_HPP
