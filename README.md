@@ -7,7 +7,7 @@ Various benchmarks.
 First of all, generate a build system:
 
 ```bash
-user@host:~/benchmarks$ cmake -S . -B build
+user@host:~/benchmarks$ cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -GNinja
 ```
 
 Invoke the build system afterwards:
