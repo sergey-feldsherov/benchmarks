@@ -25,3 +25,4 @@ add_subdirectory(external)
 
 add_subdirectory(pow2rd)
 add_subdirectory(innerproduct)
+add_subdirectory(search)
