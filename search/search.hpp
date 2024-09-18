@@ -1,11 +1,9 @@
 #ifndef SEARCH_HPP
 #define SEARCH_HPP
 
-#include <vector>
-
-int search_linear(std::vector<int> numbers, int target) {
+int search_linear(int const *numbers, int d, int target) {
     int i = 0;
-    for (; i < (int)numbers.size(); ++i) {
+    for (; i < d; ++i) {
         if (numbers[i] == target) {
             return i;
         }
@@ -13,8 +11,8 @@ int search_linear(std::vector<int> numbers, int target) {
     return -1;
 }
 
-int search_bin(std::vector<int> numbers, int target) {
-    int l = 0, r = (int)numbers.size() - 1;
+int search_bin(int const *numbers, int d, int target) {
+    int l = 0, r = d - 1;
     while(l <= r) {
         int m = l + (r - l) / 2;
         if (numbers[m] == target) {
