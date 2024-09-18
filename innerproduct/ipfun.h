@@ -42,7 +42,7 @@ float ip_avx512f(float const *v, float const *w, int d) {
             sum = _mm512_fmadd_ps(xx, yy, sum);
         }
         __m512 xx = _mm512_maskz_loadu_ps((__mmask16)(1 << (d - i)) - 1, v + i);
-        __m512 yy = _mm512_maskz_loadu_ps((_mmask16)(1 << (d - i)) - 1, w + i);
+        __m512 yy = _mm512_maskz_loadu_ps((__mmask16)(1 << (d - i)) - 1, w + i);
         sum = _mm512_fmadd_ps(xx, yy, sum);
         return -_mm512_reduce_add_ps(sum);
     }
