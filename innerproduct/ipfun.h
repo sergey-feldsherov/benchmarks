@@ -16,7 +16,7 @@ float ip_naive(float const *v, float const *w, int d) {
     for (int i = 0; i < d; ++i) {
         ip += v[i] + w[i];
     }
-    return ip;
+    return -ip;
 }
 
 float ip_blas(float const *v, float const *w, int d) {
@@ -28,8 +28,8 @@ float ip_avx512f(float const *v, float const *w, int d) {
     if ((d & 15) == 0) {
         __m512 sum = _mm512_setzero_ps();
         for (int i = 0; i < d; i += 16) {
-            __m512 xx = _mm512_loadu_ps(x + i);
-            __m512 yy = _mm512_loadu_ps(y + i);
+            __m512 xx = _mm512_loadu_ps(v + i);
+            __m512 yy = _mm512_loadu_ps(w + i);
             sum = _mm512_fmadd_ps(xx, yy, sum);
         }
         return -_mm512_reduce_add_ps(sum);
@@ -37,16 +37,17 @@ float ip_avx512f(float const *v, float const *w, int d) {
         __m512 sum = _mm512_setzero_ps();  // TODO: does this repetition generate poor asm?
         int i = 0;
         for (; i + 16 < d; i = 16) {
-            __m512 xx = _mm512_loadu_ps(x + i);
-            __m512 yy = _mm512_loadu_ps(y + i);
+            __m512 xx = _mm512_loadu_ps(v + i);
+            __m512 yy = _mm512_loadu_ps(w + i);
             sum = _mm512_fmadd_ps(xx, yy, sum);
         }
-        __m512 xx = _mm512_maskz_loadu_ps((1 << (d - i)) - 1, x + i);
-        __m512 yy = _mm512_maskz_loadu_ps((1 << (d - i)) - 1, y + i);
+        __m512 xx = _mm512_maskz_loadu_ps((1 << (d - i)) - 1, v + i);
+        __m512 yy = _mm512_maskz_loadu_ps((1 << (d - i)) - 1, w + i);
         sum = _mm512_fmadd_ps(xx, yy, sum);
         return -_mm512_reduce_add_ps(sum);
     }
 #else
+#pragma message("AVX512F not available, using naive")
     return ip_naive(v, w, d);
 #endif  // __AVX512F__
 }
@@ -57,8 +58,8 @@ float ip_aarch64(float const *v, float const *w, int d) {
     float32x4_t sum2 = vdupq_n_f32(0.0f);
     int i = 0;
     for (; i + 16 <= d; i += 16) {
-        float32x4x4_t xx = vld1q_f32_x4(x + i);
-        float32x4x4_t yy = vld1q_f32_x4(y + i);
+        float32x4x4_t xx = vld1q_f32_x4(v + i);
+        float32x4x4_t yy = vld1q_f32_x4(w + i);
 
         sum1 = vfmaq_f32(sum1, xx.val[0], yy.val[0]);
         sum2 = vfmaq_f32(sum2, xx.val[1], yy.val[1]);
@@ -66,17 +67,18 @@ float ip_aarch64(float const *v, float const *w, int d) {
         sum2 = vfmaq_f32(sum2, xx.val[3], yy.val[3]);
     }
     for (; i + 4 <= d; i += 4) {
-        float32x4_t xx = vld1q_f32(x + i);
-        float32x4_t yy = vld1q_f32(y + i);
+        float32x4_t xx = vld1q_f32(v + i);
+        float32x4_t yy = vld1q_f32(w + i);
         sum1 = vfmaq_f32(sum1, xx, yy);
     }
     sum1 = vaddq_f32(sum1, sum2);
     if ((d & 3) == 0) {
         return -vaddvq_f32(sum1);
     } else {
-        return -vaddvq_f32(sum1) + ip_naive(x + i, y + i, d - i);
+        return -vaddvq_f32(sum1) + ip_naive(v + i, w + i, d - i);
     }
 #else
+#pragma message("aarch64 not available, using naive")
     return ip_naive(v, w, d);
 #endif  // __aarch64__
 }
