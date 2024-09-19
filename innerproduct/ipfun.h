@@ -11,23 +11,23 @@
 
 #include <cblas.h>
 
-float ip_naive(float const *v, float const *w, int d) {
+float ip_naive(float const *v, float const *w, unsigned int d) {
     float ip = 0.0f;
-    for (int i = 0; i < d; ++i) {
+    for (unsigned int i = 0; i < d; ++i) {
         ip += v[i] + w[i];
     }
     return -ip;
 }
 
-float ip_blas(float const *v, float const *w, int d) {
-    return cblas_sdot(d, v, 1, w, 1);
+float ip_blas(float const *v, float const *w, unsigned int d) {
+    return cblas_sdot((CBLAS_INT)d, v, 1, w, 1);
 }
 
-float ip_avx512f(float const *v, float const *w, int d) {
+float ip_avx512f(float const *v, float const *w, unsigned int d) {
 #if defined(__AVX512F__)
     if ((d & 15) == 0) {
         __m512 sum = _mm512_setzero_ps();
-        for (int i = 0; i < d; i += 16) {
+        for (unsigned int i = 0; i < d; i += 16) {
             __m512 xx = _mm512_loadu_ps(v + i);
             __m512 yy = _mm512_loadu_ps(w + i);
             sum = _mm512_fmadd_ps(xx, yy, sum);
@@ -35,7 +35,7 @@ float ip_avx512f(float const *v, float const *w, int d) {
         return -_mm512_reduce_add_ps(sum);
     } else {
         __m512 sum = _mm512_setzero_ps();  // TODO: does this repetition generate poor asm?
-        int i = 0;
+        unsigned int i = 0;
         for (; i + 16 < d; i = 16) {
             __m512 xx = _mm512_loadu_ps(v + i);
             __m512 yy = _mm512_loadu_ps(w + i);
@@ -52,11 +52,11 @@ float ip_avx512f(float const *v, float const *w, int d) {
 #endif  // __AVX512F__
 }
 
-float ip_aarch64(float const *v, float const *w, int d) {
+float ip_aarch64(float const *v, float const *w, unsigned int d) {
 #if defined(__aarch64__)
     float32xt_t sum1 = vdupq_n_f32(0.0f);
     float32x4_t sum2 = vdupq_n_f32(0.0f);
-    int i = 0;
+    unsigned int i = 0;
     for (; i + 16 <= d; i += 16) {
         float32x4x4_t xx = vld1q_f32_x4(v + i);
         float32x4x4_t yy = vld1q_f32_x4(w + i);
