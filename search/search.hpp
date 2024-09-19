@@ -12,7 +12,7 @@ unsigned int search_linear(int const *numbers, unsigned int d, int target) {
 }
 
 unsigned int search_bin(int const *numbers, unsigned int d, int target) {
-    unsigned int l = 0, r = d - 1;
+    int l = 0, r = d - 1;
     while(l <= r) {
         int m = l + (r - l) / 2;
         if (numbers[m] == target) {
@@ -23,7 +23,7 @@ unsigned int search_bin(int const *numbers, unsigned int d, int target) {
             r = m - 1;
         }
     }
-    return -1;
+    return d;
 }
 
 #endif  // SEARCH_HPP
