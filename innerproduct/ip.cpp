@@ -19,7 +19,7 @@ float ip_naive(float const *v, float const *w, unsigned int d) {
 }
 
 float ip_blas(float const *v, float const *w, unsigned int d) {
-    return cblas_sdot((CBLAS_INT)d, v, 1, w, 1);
+    return cblas_sdot((int)d, v, 1, w, 1);  // TODO: why does it not work if I cast d to CBLAS_INT?
 }
 
 float ip_avx512f(float const *v, float const *w, unsigned int d) {
