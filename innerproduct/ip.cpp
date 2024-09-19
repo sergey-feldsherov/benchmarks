@@ -4,9 +4,9 @@
 #include <immintrin.h>
 #endif  // __AVX512F__
 
-#if defined(__aarch64__)
+#if defined(__ARM_NEON)
 #include <arm_neon.h>
-#endif  // __aarch64__
+#endif  // __ARM_NEON
 
 #include <cblas.h>
 
@@ -51,8 +51,8 @@ float ip_avx512f(float const *v, float const *w, unsigned int d) {
 #endif  // __AVX512F__
 }
 
-float ip_aarch64(float const *v, float const *w, unsigned int d) {
-#if defined(__aarch64__)
+float ip_arm_neon(float const *v, float const *w, unsigned int d) {
+#if defined(__ARM_NEON)
     float32xt_t sum1 = vdupq_n_f32(0.0f);
     float32x4_t sum2 = vdupq_n_f32(0.0f);
     unsigned int i = 0;
@@ -77,7 +77,7 @@ float ip_aarch64(float const *v, float const *w, unsigned int d) {
         return -vaddvq_f32(sum1) + ip_naive(v + i, w + i, d - i);
     }
 #else
-#pragma message("aarch64 not available, using naive")
+#pragma message("ARM Neon not available, using naive")
     return ip_naive(v, w, d);
-#endif  // __aarch64__
+#endif  // __ARM_NEON
 }
