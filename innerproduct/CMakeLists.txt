@@ -3,7 +3,7 @@ find_package(BLAS REQUIRED)
 
 add_library(ip)
 target_sources(ip PUBLIC ip.h PRIVATE ip.cpp)
-target_link_libraries(ip ${BLAS_LIBRARIES})
+target_link_libraries(ip PRIVATE ${BLAS_LIBRARIES})
 target_compile_options(ip PRIVATE -march=native)
 
 # TODO: that's for Clang, make some other way to change build flags
