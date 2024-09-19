@@ -9,7 +9,7 @@ uint32_t num = shortnum;
 
 static void BM_pow2rd_naive(benchmark::State &state) {
     for (auto _ : state) {
-        int result = pow2rd_naive((uint32_t)state.range(0));
+        uint32_t result = pow2rd_naive((uint32_t)state.range(0));
         benchmark::DoNotOptimize(result);
     }
     state.SetComplexityN(state.range(0));
@@ -18,7 +18,7 @@ BENCHMARK(BM_pow2rd_naive)->Range(7, shortnum)->Complexity(benchmark::oLogN);
 
 static void BM_pow2rd_builtin_clz(benchmark::State &state) {
     for (auto _ : state) {
-        int result = pow2rd_builtin_clz((uint32_t)state.range(0));
+        uint32_t result = pow2rd_builtin_clz((uint32_t)state.range(0));
         benchmark::DoNotOptimize(result);
     }
     state.SetComplexityN(state.range(0));

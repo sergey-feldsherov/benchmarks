@@ -10,7 +10,7 @@ inline uint32_t pow2rd_naive(uint32_t n) {
 }
 
 inline uint32_t pow2rd_builtin_clz(uint32_t n) {
-    uint32_t nlz = __builtin_clz(n);
+    int nlz = __builtin_clz(n);
     return 1 << (31 - nlz);
 }
 
