@@ -12,11 +12,11 @@ static void BM_ip_naive(benchmark::State &state) {
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_real_distribution<float> uni(0, 1);
-    int d = (int)state.range(0);
+    unsigned int d = (unsigned int)state.range(0);
     float *v, *w;
     v = new float[d];
     w = new float[d];
-    for (int i = 0; i < d; ++i) {
+    for (unsigned int i = 0; i < d; ++i) {
         v[i] = uni(mt);
         w[i] = uni(mt);
     }
@@ -35,11 +35,11 @@ static void BM_ip_avx512f(benchmark::State &state) {
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_real_distribution<float> uni(0, 1);
-    int d = (int)state.range(0);
+    unsigned int d = (unsigned int)state.range(0);
     float *v, *w;
     v = new float[d];
     w = new float[d];
-    for (int i = 0; i < d; ++i) {
+    for (unsigned int i = 0; i < d; ++i) {
         v[i] = uni(mt);
         w[i] = uni(mt);
     }
@@ -61,11 +61,11 @@ static void BM_ip_aarch64(benchmark::State &state) {
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_real_distribution<float> uni(0, 1);
-    int d = (int)state.range(0);
+    unsigned int d = (unsigned int)state.range(0);
     float *v, *w;
     v = new float[d];
     w = new float[d];
-    for (int i = 0; i < d; ++i) {
+    for (unsigned int i = 0; i < d; ++i) {
         v[i] = uni(mt);
         w[i] = uni(mt);
     }
@@ -86,11 +86,11 @@ static void BM_ip_blas(benchmark::State &state) {
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_real_distribution<float> uni(0, 1);
-    int d = (int)state.range(0);
+    unsigned int d = (unsigned int)state.range(0);
     float *v, *w;
     v = new float[d];
     w = new float[d];
-    for (int i = 0; i < d; ++i) {
+    for (unsigned int i = 0; i < d; ++i) {
         v[i] = uni(mt);
         w[i] = uni(mt);
     }
