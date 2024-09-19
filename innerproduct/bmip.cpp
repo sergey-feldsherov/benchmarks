@@ -4,6 +4,8 @@
 
 #include "ipfun.h"
 
+constexpr int kRangeMin = 16;
+constexpr int kRangeMax = 1<<16;
 constexpr float kMinWarmUpTime = 0.0f;
 
 static void BM_ip_naive(benchmark::State &state) {
@@ -26,7 +28,7 @@ static void BM_ip_naive(benchmark::State &state) {
     delete[] v;
     delete[] w;
 }
-BENCHMARK(BM_ip_naive)->Range(64, 4096*8)->Complexity(benchmark::oN)->MinWarmUpTime(kMinWarmUpTime);
+BENCHMARK(BM_ip_naive)->Range(kRangeMin, kRangeMax)->Complexity(benchmark::oN)->MinWarmUpTime(kMinWarmUpTime);
 
 #if defined (__AVX512F__)
 static void BM_ip_avx512f(benchmark::State &state) {
@@ -49,7 +51,7 @@ static void BM_ip_avx512f(benchmark::State &state) {
     delete[] v;
     delete[] w;
 }
-BENCHMARK(BM_ip_avx512f)->Range(64, 4096*8)->Complexity(benchmark::oN)->MinWarmUpTime(kMinWarmUpTime);
+BENCHMARK(BM_ip_avx512f)->Range(kRangeMin, kRangeMax)->Complexity(benchmark::oN)->MinWarmUpTime(kMinWarmUpTime);
 #else
 #pragma message("no AVX512F support, not building *_avx512f benchmarks")
 #endif  // __AVX512F__
@@ -75,7 +77,7 @@ static void BM_ip_aarch64(benchmark::State &state) {
     delete[] v;
     delete[] w;
 }
-BENCHMARK(BM_ip_aarch64)->Range(64, 4096*8)->Complexity(benchmark::oN)->MinWarmUpTime(kMinWarmUpTime);
+BENCHMARK(BM_ip_aarch64)->Range(kRangeMin, kRangeMax)->Complexity(benchmark::oN)->MinWarmUpTime(kMinWarmUpTime);
 #else
 #pragma message("no aarch64 support, not building *_aarch64 benchmarks")
 #endif  // __aarch64__
@@ -100,6 +102,6 @@ static void BM_ip_blas(benchmark::State &state) {
     delete[] v;
     delete[] w;
 }
-BENCHMARK(BM_ip_blas)->Range(64, 4096*8)->Complexity(benchmark::oN)->MinWarmUpTime(kMinWarmUpTime);
+BENCHMARK(BM_ip_blas)->Range(kRangeMin, kRangeMax)->Complexity(benchmark::oN)->MinWarmUpTime(kMinWarmUpTime);
 
 BENCHMARK_MAIN();
