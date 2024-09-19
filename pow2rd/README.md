@@ -21,6 +21,7 @@ This was used to profile with perf.
 
 ## TODO
 
+- make sure weird test inputs don't make life easier for any of functions
 - add benchmarking results with notes here
 - write down here a quick reminder on how to use perf to analyze this code
 - fix old-Makefile
