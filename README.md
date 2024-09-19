@@ -2,6 +2,10 @@
 
 Various benchmarks.
 
+## TODO
+
+- check how to correctly build Google benchmark in release mode
+
 ## Building
 
 First of all, generate a build system:
