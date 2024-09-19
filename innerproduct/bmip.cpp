@@ -2,7 +2,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include "ipfun.h"
+#include "ip.h"
 
 constexpr int kRangeMin = 16;
 constexpr int kRangeMax = 1<<16;

@@ -1,5 +1,4 @@
-#ifndef IPFUN_H
-#define IPFUN_H
+#include "ip.h"
 
 #if defined(__AVX512F__)
 #include <immintrin.h>
@@ -82,5 +81,3 @@ float ip_aarch64(float const *v, float const *w, unsigned int d) {
     return ip_naive(v, w, d);
 #endif  // __aarch64__
 }
-
-#endif  // IPFUN_H
