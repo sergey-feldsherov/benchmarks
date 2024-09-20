@@ -18,6 +18,12 @@ void fillrandvec(float *vec, int d) {
     }
 }
 
+/*
+static void BM_singe_fill_ip_x2_naive(benchmark::State &state) {
+}
+BENCHMARK(BM_single_fill_ip_x2_naive)->Range(kRangeMin, kRangeMaxSingleFill)->Complexity(benchmark::oN);
+*/
+
 static void DISABLED_BM_refill_ip_naive(benchmark::State &state) {
     int d = (int)state.range(0);
     float *v = new float[d], *w = new float[d];
